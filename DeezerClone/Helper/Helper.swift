@@ -24,7 +24,7 @@ class Helper {
                 let count = try context.count(for: fetchRequest)
                 return count > 0
             } catch {
-                print("Veri sorgulama hatası: \(error)")
+                print("Error: \(error)")
                 return false
             }
     }
@@ -46,9 +46,8 @@ class Helper {
         
         do {
             try context.save()
-            print("veri eklendi")
         } catch {
-            print("Hata: \(error)")
+            print("Error: \(error)")
         }
         
     }
@@ -64,18 +63,16 @@ class Helper {
         do {
             let results = try context.fetch(fetchRequest)
             for track in results {
-                // Veriyi silebilirsiniz
                 context.delete(track as! NSManagedObject)
             }
         } catch {
-            print("Veri silme hatası: \(error)")
+            print("Error: \(error)")
         }
         
         do {
             try context.save()
-            print("veri silindi")
         } catch {
-            print("Değişiklikleri kaydetme hatası: \(error)")
+            print("Error: \(error)")
         }
         
     }
@@ -88,7 +85,6 @@ class Helper {
         let trackImage = managedObject.value(forKey: "trackImage") as? String ?? ""
         let trackPreview = managedObject.value(forKey: "trackPreview") as? String ?? ""
         let isLiked = managedObject.value(forKey: "isLiked") as? Bool ?? false
-        // Diğer özellikleri dönüştürün
         
         return LikedTrack(trackId: trackId, artistName: artistName, trackName: trackName, trackDuration: trackDuration , trackImage: trackImage , trackPreview: trackPreview , isLiked: isLiked)
     }
